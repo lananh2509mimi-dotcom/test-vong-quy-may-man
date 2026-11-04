@@ -48,11 +48,11 @@ window.QRGameResult = {
 
     if (mode === "win") {
       displayMessage = `Mã nhận thưởng của bạn là: ${prizeCode}`;
-    } else if (mode === "special") {
-      displayMessage =
-        message ||
-        prizeName ||
-        config.message;
+} else if (mode === "special") {
+  displayMessage = messages.length
+    ? messages[Math.floor(Math.random() * messages.length)]
+    : (message || prizeName || config.message);
+}
     } else {
       displayMessage = messages.length
         ? messages[Math.floor(Math.random() * messages.length)]
