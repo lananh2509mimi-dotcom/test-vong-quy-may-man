@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17324d">
+  <meta name="description" content="QR May Mắn - khám phá món quà bất ngờ của bạn.">
+  <title>QR May Mắn | Khám phá món quà</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body data-result="win">
+  <main class="page-shell">
+    <section class="game-card" aria-labelledby="pageTitle">
+      <div class="top-accent"></div>
+      <div class="brand-mark">
+  <img src="assets/logochung.png" alt="Logo chương trình">
+</div>
+      <p class="eyebrow" id="eyebrow">A LITTLE MOMENT OF LUCK</p>
+      <h1 id="pageTitle">QR MAY MẮN</h1>
+      <p class="intro" id="introText">Một bất ngờ đang chờ bạn khám phá. Hãy nhập họ tên và mở món quà may mắn của mình nhé!</p>
+
+      <form id="playerForm" novalidate>
+<div class="player-fields">
+  <div class="field-group">
+    <label for="playerName">Ghi rõ họ và tên của bạn</label>
+    <input id="playerName" name="playerName" type="text" maxlength="100"
+           autocomplete="name" placeholder="Nhập họ và tên..." required>
+  </div>
+
+  <div class="field-group">
+    <label for="birthYear">Năm sinh</label>
+    <input id="birthYear" name="birthYear" type="number"
+           min="1930" max="2026" step="1"
+           inputmode="numeric" placeholder="VD: 2003" required>
+  </div>
+
+  <div class="field-group">
+    <label for="teamName">Tổ</label>
+    <select id="teamName" name="teamName" required>
+      <option value="">Chọn tổ</option>
+      <option value="Tổ 1A">Tổ 1A</option>
+      <option value="Tổ 1B">Tổ 1B</option>
+      <option value="Tổ 1C">Tổ 1C</option>
+      <option value="Tổ 2A">Tổ 2A</option>
+      <option value="Tổ 2B">Tổ 2B</option>
+      <option value="Tổ 2C">Tổ 2C</option>
+      <option value="Tổ 3A">Tổ 3A</option>
+      <option value="Tổ 3B">Tổ 3B</option>
+      <option value="Tổ 3C">Tổ 3C</option>
+      <option value="Tổ 4A">Tổ 4A</option>
+      <option value="Tổ 4B">Tổ 4B</option>
+      <option value="Tổ 4C">Tổ 4C</option>
+      <option value="Tổ 5A">Tổ 5A</option>
+      <option value="Tổ 5B">Tổ 5B</option>
+      <option value="Tổ 5C">Tổ 5C</option>
+      <option value="Tổ Năng khiếu">Tổ Năng khiếu</option>
+      <option value="Tổ HCQT">Tổ HCQT</option>
+      <option value="Cơ sở Symphony">Cơ sở Symphony</option>
+      <option value="Tổ Bán trú">Tổ Bán trú</option>
+      <option value="Tổ Bếp">Tổ Bếp</option>
+    </select>
+  </div>
+</div>
+        <p class="field-error" id="formError" role="alert"></p>
+        <button class="primary-button" type="submit" id="openButton">🎁 MỞ QUÀ MAY MẮN</button>
+      </form>
+<section class="result-panel" id="resultPanel" aria-live="polite" hidden>
+  <div id="scratchArea" class="scratch-area" hidden>
+    <div id="scratchResultCard" class="scratch-result-card">
+      <div class="result-emoji" id="resultEmoji">🍀</div>
+      <div class="sparkles" id="sparkles" aria-hidden="true">✦ ✧ ✦</div>
+      <h2 id="resultTitle">CẢM ƠN BẠN ĐÃ THAM GIA!</h2>
+      <p id="resultMessage">Thông điệp dành riêng cho bạn sẽ xuất hiện tại đây.</p>
+      <div class="prize-note" id="prizeNote">Cảm ơn bạn đã tham gia chương trình.</div>
+    </div>
+    <canvas id="scratchCanvas" aria-label="Cào phiếu để xem kết quả"></canvas>
+  </div>
+</section>
+      <p class="footer-note" id="footerText">Chúc bạn có một ngày thật vui và nhiều điều tốt đẹp.</p>
+    </section>
+  </main>
+
+<script src="js/config.js"></script>
+<script src="js/form.js"></script>
+<script src="js/messages.js"></script>
+<script src="js/result.js"></script>
+<script src="js/confetti.js"></script>
+<script src="js/scratch-card.js"></script>
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

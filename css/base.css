@@ -1,0 +1,26 @@
+:root {
+  --primary: #1261A0;
+  --primary-dark: #0A3763;
+  --primary-light: #EAF4FC;
+  --accent-red: #D62839;
+  --white: #FFFFFF;
+  --text: #18324B;
+  --muted: #6B7F92;
+  --border: #D7E5F1;
+  --background: #F3F8FC;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 15%, #fff 0, transparent 30%),
+    radial-gradient(circle at 90% 85%, #dcebf1 0, transparent 35%),
+    linear-gradient(135deg, #f7fafc, #edf3f6);
+}
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }

@@ -1,0 +1,612 @@
+
+/* ========================================
+   1. KHU VỰC HIỂN THỊ KẾT QUẢ
+======================================== */
+
+.result-panel {
+  position: relative;
+  width: 100%;
+  margin: 24px auto 0;
+  padding: 24px 18px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(15, 45, 75, 0.12);
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition:
+    opacity 450ms ease,
+    transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.result-panel[hidden] {
+  display: none !important;
+}
+
+.result-panel.reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.result-panel.is-win {
+  border: 2px solid #f2c14e;
+  background: linear-gradient(180deg, #fffdf5 0%, #ffffff 100%);
+}
+
+.result-panel.is-lose {
+  border: 2px solid #f2c14e;
+  background: linear-gradient(180deg, #fffdf5 0%, #ffffff 100%);
+}
+
+/* ========================================
+   2. TIÊU ĐỀ VÀ BIỂU TƯỢNG KẾT QUẢ
+======================================== */
+
+#resultEmoji {
+  display: block;
+  margin: 0 auto 10px;
+  text-align: center;
+  font-size: clamp(38px, 8vw, 54px);
+  line-height: 1.2;
+  animation: resultEmojiIn 650ms ease both;
+}
+
+#resultTitle {
+  margin: 0 auto 12px;
+  color: #174a7e;
+  font-size: clamp(21px, 5vw, 28px);
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.result-panel.is-win #resultTitle {
+  color: #b77908;
+}
+
+.result-panel.is-lose #resultTitle {
+  color: #b77908;
+}
+
+#prizeNote {
+  margin: 12px auto 0;
+  max-width: 540px;
+  color: #617184;
+  font-size: 14px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* ========================================
+   3. KHU VỰC PHIẾU BÓC TEM
+======================================== */
+
+.scratch-area {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  min-height: 255px;
+  margin: 22px auto 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  isolation: isolate;
+  border-radius: 20px;
+  background: transparent;
+  touch-action: none;
+}
+
+.scratch-area[hidden] {
+  display: none !important;
+}
+
+/* ========================================
+   4. THẺ KẾT QUẢ NẰM DƯỚI LỚP TEM
+======================================== */
+
+.scratch-result-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 255px;
+  padding: 26px 20px;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  border-radius: 20px;
+  text-align: center;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.scratch-card-win {
+  color: #774900;
+  border: 2px solid #f2c14e;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 229, 150, 0.65),
+      transparent 65%
+    ),
+    linear-gradient(145deg, #fff9e5, #ffffff 70%);
+}
+
+.scratch-card-lose {
+  color: #774900;
+  border: 2px solid #f2c14e;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 229, 150, 0.65),
+      transparent 65%
+    ),
+    linear-gradient(145deg, #fff9e5, #ffffff 70%);
+}
+
+/* Nội dung kết quả */
+
+#resultMessage {
+  width: 100%;
+  max-width: 390px;
+  margin: 10px auto 0;
+  color: #263d52;
+  font-size: clamp(17px, 4vw, 21px);
+  font-weight: 600;
+  line-height: 1.8;
+  text-align: center;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.scratch-card-win #resultMessage {
+  color: #875a0a;
+}
+
+.scratch-card-lose #resultMessage {
+  color: #875a0a;
+}
+
+/* ========================================
+   5. LỚP TEM BÓC PHỦ LÊN KẾT QUẢ
+======================================== */
+
+#scratchCanvas {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    opacity 350ms ease,
+    transform 350ms ease;
+}
+
+#scratchCanvas[hidden] {
+  display: none !important;
+}
+
+#scratchCanvas:active {
+  cursor: grabbing;
+}
+
+/* Hiệu ứng khi hoàn tất bóc tem */
+
+.scratch-area.scratch-revealed #scratchCanvas {
+  opacity: 0;
+  transform: scale(1.04) rotate(-1deg);
+  pointer-events: none;
+}
+
+.scratch-area.scratch-complete #scratchCanvas {
+  display: none;
+}
+
+/* ========================================
+   6. HIỆU ỨNG HIỆN KẾT QUẢ SAU KHI BÓC
+======================================== */
+
+.scratch-area .scratch-result-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.scratch-area.scratch-complete .scratch-result-card {
+  animation: scratchResultReveal 650ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scratchResultReveal {
+  0% {
+    opacity: 0.7;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.015);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================
+   7. HIỆU ỨNG CHỮ LỜI CHÚC
+======================================== */
+
+#resultMessage.typing-message {
+  animation: resultMessageIn 850ms
+    cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes resultMessageIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ========================================
+   8. HIỆU ỨNG BIỂU TƯỢNG
+======================================== */
+
+@keyframes resultEmojiIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.65) rotate(-8deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.08) rotate(3deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+/* ========================================
+   9. RESPONSIVE CHO ĐIỆN THOẠI
+======================================== */
+
+@media (max-width: 600px) {
+  .result-panel {
+    margin-top: 18px;
+    padding: 20px 12px;
+    border-radius: 20px;
+  }
+
+  .scratch-area {
+    min-height: 235px;
+    margin-top: 18px;
+    border-radius: 18px;
+  }
+
+  .scratch-result-card {
+    min-height: 235px;
+    padding: 22px 15px;
+    border-radius: 18px;
+  }
+
+  #scratchCanvas {
+    border-radius: 16px;
+  }
+
+  #resultTitle {
+    margin-bottom: 8px;
+  }
+
+  #resultMessage {
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  #prizeNote {
+    font-size: 13px;
+  }
+}
+
+/* ========================================
+   10. HỖ TRỢ NGƯỜI DÙNG GIẢM CHUYỂN ĐỘNG
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .result-panel,
+  #scratchCanvas {
+    transition: none !important;
+  }
+
+  #resultEmoji,
+  .scratch-area.scratch-complete .scratch-result-card,
+  #resultMessage.typing-message {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ===== GIAO DIỆN TRANG QR MAY MẮN ===== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #18334d;
+  background:
+    radial-gradient(circle at 15% 15%, #ffffff 0, transparent 38%),
+    linear-gradient(135deg, #f5f9fc 0%, #eaf3f9 100%);
+}
+
+input,
+button {
+  font: inherit;
+}
+
+#playerForm {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+#playerForm label {
+  display: block;
+  margin-bottom: 9px;
+  color: #27445e;
+  font-size: 14px;
+  font-weight: 650;
+  text-align: left;
+}
+
+#playerForm input[type="text"],
+#playerForm input:not([type]) {
+  display: block;
+  width: 100%;
+  min-height: 49px;
+  margin: 0 0 18px;
+  padding: 0 15px;
+  color: #18334d;
+  background: #fff;
+  border: 1px solid #d4e1ec;
+  border-radius: 12px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(29, 65, 96, 0.03);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+#playerForm input:focus {
+  border-color: #428cc8;
+  box-shadow: 0 0 0 4px rgba(66, 140, 200, 0.12);
+}
+
+#playerForm input::placeholder {
+  color: #9aaaba;
+}
+
+#playerForm button,
+#playerForm button[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 50px;
+  margin-top: 8px;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  background: linear-gradient(135deg, #1767a8, #278bc1);
+  border: 0;
+  border-radius: 13px;
+  box-shadow: 0 7px 16px rgba(31, 111, 169, 0.2);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+#playerForm button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(31, 111, 169, 0.25);
+}
+
+#playerForm button:active {
+  transform: translateY(0);
+}
+
+#playerForm button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Phù hợp với màn hình điện thoại */
+
+@media (max-width: 600px) {
+  #playerForm {
+    max-width: 100%;
+  }
+
+  #playerForm label {
+    font-size: 14px;
+  }
+
+  #playerForm button,
+  #playerForm button[type="submit"] {
+    min-height: 48px;
+    font-size: 14px;
+  }
+}
+/* KẾT QUẢ TRƯỢT SAU KHI BÓC TEM: XANH DƯƠNG */
+
+.result-panel.is-lose #resultTitle {
+  color: #2469a5;
+}
+
+.scratch-card-lose {
+  color: #245b87;
+  border: 2px solid #8bbce5;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(190, 222, 250, 0.65),
+      transparent 65%
+    ),
+    linear-gradient(145deg, #edf6ff, #ffffff 70%);
+}
+
+.scratch-card-lose #resultTitle {
+  color: #2469a5;
+}
+
+.scratch-card-lose #resultMessage {
+  color: #315d82;
+}
+
+.scratch-card-lose #prizeNote {
+  color: #6686a5;
+}
+/* TÔ MÀU ĐỎ RIÊNG TÊN NGƯỜI CHƠI */
+.player-name-highlight {
+  color: #e53935 !important;
+  font-weight: 900;
+}
+/* MOBILE SCRATCH CARD */
+@media (max-width: 600px) {
+  .result-panel {
+    margin-top: 18px;
+    padding: 16px 12px;
+    border-radius: 20px;
+  }
+
+  .scratch-area {
+    width: 100%;
+    min-height: clamp(230px, 68vw, 290px);
+    margin-top: 12px;
+    border-radius: 16px;
+  }
+
+  .scratch-result-card {
+    min-height: clamp(230px, 68vw, 290px);
+    padding: 20px 12px;
+    border-radius: 16px;
+  }
+
+  #scratchCanvas {
+    border-radius: 14px;
+  }
+
+  #resultEmoji {
+    font-size: 44px;
+  }
+
+  #resultTitle {
+    font-size: clamp(20px, 5.8vw, 25px);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  #resultMessage {
+    font-size: clamp(16px, 4.5vw, 19px);
+    line-height: 1.65;
+  }
+
+  #prizeNote {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  #playerForm input {
+    min-height: 50px;
+    font-size: 16px;
+  }
+
+  #playerForm button {
+    min-height: 52px;
+    font-size: 14px;
+  }
+}
+/* Ba trường thông tin người chơi */
+.player-fields {
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.field-group label {
+  margin-bottom: 7px;
+}
+
+.field-group input,
+.field-group select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 12px;
+  border: 1px solid #d5dce5;
+  border-radius: 10px;
+  font: inherit;
+  background: #fff;
+  color: #17324d;
+}
+
+.field-group input:focus,
+.field-group select:focus {
+  outline: none;
+  border-color: #1261A0;
+  box-shadow: 0 0 0 3px rgba(18, 97, 160, 0.12);
+}
+
+@media (max-width: 600px) {
+  .player-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field-group:first-child {
+    grid-column: 1 / -1;
+  }
+}
