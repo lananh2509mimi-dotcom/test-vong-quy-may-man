@@ -11,27 +11,20 @@ window.QRLuckyMessages = {
     "Một chút may mắn, thật nhiều niềm vui. Chúc mừng bạn!",
     "Xin gửi đến bạn lời chúc mừng và một món quà thật vui! 🌟"
   ],
-
-  special: [
-    "Bạn nhận được 1 cái ôm thật ấm áp từ Ban Tổ chức! 🤗",
-    "Bạn nhận được tình cảm yêu thương của tất cả mọi người! 💙",
-    "Mời bạn nhận một tràng pháo tay thật lớn từ hội trường! 👏",
-    "Bạn nhận được một lời chúc may mắn từ Ban Tổ chức! 🍀",
-    "Bạn có một cái bắt tay thật thân tình từ Ban Tổ chức! 🤝",
-    "Bạn nhận được 1 nụ cười thật tươi từ tất cả mọi người! 😊",
-    "Bạn nhận được đặc quyền được cả hội trường cổ vũ! 🎉",
-    "Bạn nhận được một lời khen chân thành từ Ban Tổ chức! 🌷",
-    "Bạn nhận được 1 vé lan tỏa niềm vui đến mọi người! 💕",
-    "Bạn nhận được một lời cảm ơn vì đã góp mặt trong ngày hôm nay! 💐",
-    "Bạn nhận được 1 lời chúc: Luôn vui vẻ, bình an và gặp nhiều may mắn!",
-    "Bạn nhận được một chiếc high-five thật nhiệt tình từ Ban Tổ chức! 🙌",
-    "Bạn nhận được 100% sự yêu mến từ hội trường hôm nay! ❤️",
-    "Bạn nhận được đặc quyền được mọi người dành tặng nụ cười! 😍",
-    "Bạn nhận được một lời nhắn: Có bạn, chương trình vui hơn rất nhiều!",
-    "Bạn nhận được 1 cái vỗ vai đầy khích lệ từ Ban Tổ chức! 💪",
-    "Bạn nhận được một món quà vô hình mang tên SỰ QUÝ MẾN! 🎁",
-    "Bạn nhận được một lời chúc thành công trên mọi hành trình!",
-    "Bạn nhận được một ngày ngập tràn tiếng cười và những điều tốt đẹp! ✨",
-    "Bạn nhận được tình yêu thương phiên bản không giới hạn từ Ban Tổ chức! 💚"
+  lose: [
+    "Không sao nhé! May mắn đôi khi đến muộn một chút. 💙",
+    "Hôm nay chưa trúng quà, nhưng nụ cười vẫn thuộc về bạn!",
+    "Một lần chưa may mắn, nhiều lần vẫn đầy hy vọng.",
+    "Quà có thể chưa đến, niềm vui thì luôn ở đây!",
+    "Bạn đã thử, thế là có thêm một trải nghiệm thú vị.",
+    "Đừng buồn nhé, biết đâu bất ngờ tiếp theo đang chờ bạn.",
+    "Chúc bạn luôn tìm thấy điều tích cực trong những khoảnh khắc nhỏ.",
+    "Cảm ơn bạn đã mang đến trò chơi một tinh thần thật hào hứng.",
+    "Không trúng quà lần này, nhưng chúc bạn trúng thật nhiều niềm vui!",
+    "Mong ngày hôm nay vẫn đem đến cho bạn nhiều điều đáng nhớ.",
+    "Lượt chơi kết thúc, nhưng những điều tốt đẹp vẫn tiếp tục nhé!",
+    "Chúc bạn luôn gặp người tốt, chuyện vui và những bất ngờ dễ thương.",
+    "Cảm ơn bạn đã tham gia. Chúc may mắn sẽ ghé thăm bạn vào dịp khác!",
+    "Không sao nhé, bạn vẫn là một phần đáng quý của niềm vui hôm nay. 💙"
   ]
 };
