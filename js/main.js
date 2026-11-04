@@ -1,4 +1,3 @@
-
 (function initQRGame() {
   const form = document.getElementById("playerForm");
   const nameInput = document.getElementById("playerName");
@@ -51,11 +50,29 @@
         new Promise(resolve => setTimeout(resolve, 1800))
       ]);
 
-      if (!data || !data.success || data.result !== "win" || !data.prizeCode) {
+      if (!data || !data.success) {
         throw new Error(data?.message || "Chưa nhận được kết quả hợp lệ.");
       }
 
       loadingMessage.remove();
+
+      // TRƯỜNG HỢP HẾT QUÀ: NHẬN 1 TRÀNG PHÁO TAY
+      if (data.result === "special") {
+        window.QRGameResult.show({
+          name: data.name || validation.name,
+          team: data.team || validation.team,
+          mode: "special",
+          prizeName: data.prizeName,
+          message: data.message
+        });
+
+        return;
+      }
+
+      // TRƯỜNG HỢP TRÚNG QUÀ BÌNH THƯỜNG
+      if (data.result !== "win" || !data.prizeCode) {
+        throw new Error(data.message || "Chưa nhận được kết quả hợp lệ.");
+      }
 
       window.QRGameResult.show({
         name: data.name || validation.name,
